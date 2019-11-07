@@ -6,16 +6,14 @@ class Login extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        //load library form validasi
         $this->load->library('form_validation');
-        //load model admin
-        $this->load->model('admin');
+        $this->load->model('login_model');
     }
 
     public function index()
     {
 
-            if($this->admin->is_logged_in())
+            if($this->login_model->is_logged_in())
             {
                 //jika memang session sudah terdaftar, maka redirect ke halaman dahsboard
                 redirect("dashboard");
@@ -41,15 +39,14 @@ class Login extends CI_Controller {
 
                 //checking data via model
                 
-                $checking = $this->admin->check_login('user',array('username' => $username), array('password' => $password));
+                $checking = $this->login_model->check_login('user',array('username' => $username), array('password' => $password));
 
                 //jika ditemukan, maka create session
                 if ($checking != FALSE) {
-
                         $session_data = array(
                             'username'  => $username,
                             'password'  => $password,
-                            'nama'      => $nama,
+                            'nama'      => $this->db->where('username',$username)->get('user')
                         );
                         //set session userdata
                         $this->session->set_userdata($session_data);

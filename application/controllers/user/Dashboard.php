@@ -7,7 +7,7 @@ class Dashboard extends CI_Controller {
     {
         parent::__construct();
         //load model admin
-        $this->load->model('admin');
+        $this->load->model('login_model');
         //cek session dan level user
     }
 

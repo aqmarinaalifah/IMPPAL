@@ -2,13 +2,12 @@
 
 class Biodata_model extends CI_Model
 {
-	public function bio()
+	public function bio($username)
     {
-        'a' = $this->session->userdata('nama');
-
         $query = $this->db->select("*")
-                 ->from('biodata')
-                 ->where('nama' )
+                 ->from("biodata")
+                 ->join("user","user.username=biodata.nama")
+                 ->where("user.username",$username)
                  ->get();
         return $query->result();
     }

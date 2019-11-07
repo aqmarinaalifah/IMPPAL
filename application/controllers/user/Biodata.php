@@ -38,12 +38,7 @@ class Biodata extends CI_Controller {
 
     public function bio() 
     {
-        $data = array(
-
-            'title'     => 'Data Biodata',
-            'data_biodata' => $this->Biodata_model->bio()
-
-        );
+        $data['data_biodata'] = $this->Biodata_model->bio($this->session->userdata("username"));
 
         $this->load->view('user/View_biodata', $data);
     }
